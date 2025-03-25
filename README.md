@@ -1,4 +1,4 @@
-# Terminal NTP Clock
+# :desktop_computer: Terminal NTP Clock
 
 A terminal-based digital clock that synchronizes with Network Time Protocol (NTP) servers to display pretty accurate UTC time.
 
