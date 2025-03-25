@@ -6,11 +6,8 @@ A terminal-based digital clock that synchronizes with Network Time Protocol (NTP
 
 * Real-time clock display in terminal window
 * NTP synchronization for accurate timekeeping
-* Customizable display themes and colors
-* Multiple display formats (12/24 hour)
 * Status bar with connection and synchronization information
 * Low CPU usage design
-* Full-screen mode with border effects
 
 ## Requirements
 
