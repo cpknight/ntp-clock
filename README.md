@@ -1,6 +1,6 @@
 # Terminal NTP Clock
 
-A terminal-based digital clock that synchronizes with Network Time Protocol (NTP) servers to display accurate time with customizable visual features.
+A terminal-based digital clock that synchronizes with Network Time Protocol (NTP) servers to display pretty accurate UTC time.
 
 ## Features
 
@@ -24,27 +24,29 @@ A terminal-based digital clock that synchronizes with Network Time Protocol (NTP
 
 1. Clone the repository:
    ```
-   git clone https://github.com/cpknight/terminal-ntp-clock.git
-   cd terminal-ntp-clock
+   git clone https://github.com/cpknight/ntp-clock.git
+   cd ntp-clock
    ```
 
 2. Build the application:
    ```
    make
    ```
-
+<!--
 3. Install (optional):
    ```
    sudo make install
    ```
+-->
 
 ## Usage
 
 Run the clock with default settings:
 ```
-./clock
+./ntp-clock
 ```
 
+<!--
 Command line options:
 ```
 ./clock [options]
@@ -59,8 +61,9 @@ Options:
   -b, --border       Display with decorative border
   -f, --fullscreen   Run in fullscreen mode
 ```
+-->
 
-Press 'q' to quit the application while running.
+Use `Ctrl-C` to quit the application while running.
 
 ## License
 
