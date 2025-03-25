@@ -1,3 +1,10 @@
 *.backup
 *.o
 ntp-clock
+
+# CLion project files
+.idea/
+*.iml
+*.iws
+*.ipr
+cmake-build-*/
