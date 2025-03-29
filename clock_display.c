@@ -48,16 +48,16 @@ static bool buffer_initialized = false;
 #define ANSI_RESTORE_CURSOR "\x1b[u"
 
 // Forward declarations
-void clear_screen(void);
+// void clear_screen(void);
 void set_cursor_position(int row, int col);
-void draw_clock(time_t now);
+// void draw_clock(time_t now);
 void draw_full_clock(time_t now);
-void draw_status_bar(time_t current_time, int time_since_sync);
+// oid draw_status_bar(time_t current_time, int time_since_sync);
 void direct_draw_status_bar(time_t current_time, int time_since_sync);
 void direct_clear_screen(void);
 void direct_print(int row, int col, const char *format, ...);
 void update_hundredths(int row, int col, int hundredths);
-void show_message(const char *format, ...);
+// void show_message(const char *format, ...);
 void draw_hundredths(int row, int col, int hundredths);
 void update_terminal_size(void);
 void handle_sigint(int sig);
@@ -124,11 +124,13 @@ void update_hundredths(int row, int col, int hundredths)
 /**
  * Clear screen and position cursor at top
  */
-void clear_screen(void) 
+/*
+void clear_screen(void)
 {
     printf("%s%s", CLEAR_SCREEN, CURSOR_HOME);
     fflush(stdout);
 }
+*/
 
 /**
  * Directly clear screen without using buffer
@@ -284,6 +286,7 @@ void update_terminal_size() {
 /**
  * Draw a centered string at the specified row
  */
+/*
 void draw_centered_string(int row, const char* str) {
     int len = strlen(str);
     int pos_x = (term_width - len) / 2;
@@ -291,6 +294,7 @@ void draw_centered_string(int row, const char* str) {
     
     direct_print(row, pos_x + 1, "%s", str);
 }
+*/
 
 /**
  * Draw the hundredths of a second at the specified position
@@ -423,10 +427,12 @@ void draw_full_clock(time_t current_time)
  * Draw the clock by calling draw_full_clock
  * This function maintains backward compatibility with existing code
  */
+/*
 void draw_clock(time_t current_time)
 {
     draw_full_clock(current_time);
 }
+*/
 
 /**
  * Draw the status bar at the bottom of the screen
@@ -434,7 +440,8 @@ void draw_clock(time_t current_time)
  * of the terminal regardless of resizing
  * Note: This is a legacy version that uses buffer_line
  */
-void draw_status_bar(time_t current_time, int time_since_sync) 
+/*
+void draw_status_bar(time_t current_time, int time_since_sync)
 {
     struct tm* time_info = localtime(&current_time);
     
@@ -537,14 +544,14 @@ void draw_status_bar(time_t current_time, int time_since_sync)
     // Add to buffer
     direct_print(status_line_y, 1, "%s", status_line_buffer);
     // Step 4: Add left section to buffer with black text on gray background
-    char formatted_left_section[256];
+    char formatted_left_section[384];
     snprintf(formatted_left_section, sizeof(formatted_left_section), "\x1b[30;47m%s\x1b[0m", left_section);
     direct_print(status_line_y, 1, "%s", formatted_left_section);
     // Build the progress bar section text WITHOUT formatting to calculate its true length
     char plain_progress_section[512];
     
     // Create the divider, sync label and time
-    sprintf(plain_progress_section, "│ Sync: %s [", time_since_str);
+    sprintf(plain_progress_section, "NTP %s [", time_since_str);
     
     // Calculate maximum size for progress section (max 50% of terminal width)
     // Ensure a reasonable minimum for very small terminals
@@ -553,7 +560,7 @@ void draw_status_bar(time_t current_time, int time_since_sync)
     int max_progress_width = effective_term_width / 2;
     
     // Calculate size of fixed elements (dividers, times, labels)
-    int fixed_elements_width = strlen("│ Sync: ") + strlen(time_since_str) + 
+    int fixed_elements_width = strlen("NTP Sync: ") + strlen(time_since_str) +
                             strlen(" │ ") + strlen(" │ ") + 
                             strlen(time_until_str) + 1; // +1 for right padding space
     
@@ -592,7 +599,7 @@ void draw_status_bar(time_t current_time, int time_since_sync)
     // Now add the progress section content
     
     // Add divider and sync label with time
-    strcat(progress_section_buffer, "│ Sync: ");
+    strcat(progress_section_buffer, "NTP Sync: ");
     strcat(progress_section_buffer, time_since_str);
     strcat(progress_section_buffer, " [");
     
@@ -685,6 +692,7 @@ void draw_status_bar(time_t current_time, int time_since_sync)
         direct_print(status_line_y, progress_section_column, "%s", progress_section_buffer);
     }
 }
+*/
 
 /**
  * Direct draw status bar - draws directly to the screen without buffering
@@ -790,7 +798,7 @@ void direct_draw_status_bar(time_t current_time, int time_since_sync)
     char plain_progress_section[512];
     
     // Create the divider, sync label and time
-    sprintf(plain_progress_section, "│ Sync: %s [", time_since_str);
+    sprintf(plain_progress_section, "NTP Sync: %s [", time_since_str);
     
     // Calculate maximum size for progress section (max 50% of terminal width)
     // Ensure a reasonable minimum for very small terminals
@@ -799,7 +807,7 @@ void direct_draw_status_bar(time_t current_time, int time_since_sync)
     int max_progress_width = effective_term_width / 2;
     
     // Calculate size of fixed elements (dividers, times, labels)
-    int fixed_elements_width = strlen("│ Sync: ") + strlen(time_since_str) + 
+    int fixed_elements_width = strlen("NTP Sync: ") + strlen(time_since_str) +
                             strlen(" [") + strlen(" [") + 
                             strlen(time_until_str) + 1; // +1 for right padding space
     
@@ -837,7 +845,7 @@ void direct_draw_status_bar(time_t current_time, int time_since_sync)
         printf("\x1b[30;47m"); // Black text on grey background
         
         // Add divider and sync label with time
-        printf("│ Sync: %s [", time_since_str);
+        printf("NTP Sync: %s [", time_since_str);
         
         // Calculate filled portion of the bar
         int filled_width = (int)(progress * bar_width);
