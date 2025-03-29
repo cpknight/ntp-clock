@@ -149,6 +149,7 @@ void set_cursor_position(int row, int col)
 /**
  * Show a temporary message directly on screen
  */
+/*
 void show_message(const char *format, ...) 
 {
     va_list args;
@@ -162,6 +163,7 @@ void show_message(const char *format, ...)
     
     va_end(args);
 }
+*/
 
 const char* DIGIT_ART[10][5] =
 {
@@ -1052,7 +1054,7 @@ int main(int argc, char* argv[])
     update_terminal_size();
     
     // Perform initial sync
-    int message_line = term_height - 3;
+    // int message_line = term_height - 3;
     
     // Perform initial NTP sync
     sync_with_ntp();
@@ -1082,20 +1084,21 @@ int main(int argc, char* argv[])
         sync_with_ntp();
         direct_clear_screen();
       }
+
+
+      // Update terminal size to handle possible window resizing
+      update_terminal_size();
     
-    // Update terminal size to handle possible window resizing
-    update_terminal_size();
+      // Get the most up-to-date time including hundredths for a smooth display
+      current_time = ntp_getCurrentTime();
+      time_since_sync = ntp_getTimeSinceLastSync();
     
-    // Get the most up-to-date time including hundredths for a smooth display
-    current_time = ntp_getCurrentTime();
-    time_since_sync = ntp_getTimeSinceLastSync();
+      // Draw clock components directly to screen
+      draw_full_clock(current_time);
+      direct_draw_status_bar(current_time, time_since_sync);
     
-    // Draw clock components directly to screen
-    draw_full_clock(current_time);
-    direct_draw_status_bar(current_time, time_since_sync);
-    
-    // Sleep for a shorter interval to provide smoother hundredths updates
-    usleep(100000); // 10ms for smoother hundredths display
+      // Sleep for a shorter interval to provide smoother hundredths updates
+      usleep(100000); // 100ms for smoother tenth display
     }
 
     // Cleanup and restore terminal
