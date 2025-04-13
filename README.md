@@ -2,6 +2,8 @@
 
 A terminal-based digital clock that synchronizes with Network Time Protocol (NTP) servers to display pretty accurate UTC time.
 
+![NTP Clock Screenshot](screenshot-ntp-clock.png)
+
 ## Features
 
 * Real-time clock display in terminal window
